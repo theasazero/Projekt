@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobBoost AI – Bewerbung in Sekunden</title>
+
+<style>
+:root {
+    --bg: #070b18;
+    --card: rgba(255,255,255,0.08);
+    --border: rgba(255,255,255,0.14);
+    --text: #f8fafc;
+    --muted: #aab4d4;
+    --purple: #8b5cf6;
+    --cyan: #22d3ee;
+    --pink: #ec4899;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -30%;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(139,92,246,.35), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(34,211,238,.28), transparent 30%),
+        radial-gradient(circle at 50% 85%, rgba(236,72,153,.25), transparent 30%);
+    animation: moveBg 12s ease-in-out infinite alternate;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+    z-index: -1;
+}
+
+@keyframes moveBg {
+    from { transform: translate3d(-2%, -2%, 0) scale(1); }
+    to { transform: translate3d(3%, 2%, 0) scale(1.08); }
+}
+
+.container {
+    width: min(1180px, calc(100% - 28px));
+    margin: auto;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.logo-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    box-shadow: 0 0 35px rgba(34,211,238,.28);
+}
+
+.nav a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.nav-btn {
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid var(--border);
+    transition: .25s;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.14);
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.08fr .92fr;
+    gap: 22px;
+    align-items: center;
+    padding: 36px 0 24px;
+}
+
+.glass {
+    background: var(--card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-radius: 32px;
+    box-shadow: 0 30px 90px rgba(0,0,0,.38);
+}
+
+.hero-left {
+    padding: 44px;
+    animation: fadeUp .75s ease both;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.badge {
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #dbeafe;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: .98;
+    letter-spacing: -2.2px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #fff, #a5f3fc, #c4b5fd);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero-text {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 22px 0 0;
+    max-width: 62ch;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+}
+
+.btn {
+    border: 0;
+    cursor: pointer;
+    border-radius: 18px;
+    padding: 15px 20px;
+    font-weight: 800;
+    font-size: 15px;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.01);
+}
+
+.btn-primary {
+    color: white;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    box-shadow: 0 18px 45px rgba(34,211,238,.2);
+}
+
+.btn-secondary {
+    color: white;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.14);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.stat {
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.stat strong {
+    display: block;
+    font-size: 22px;
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.hero-right {
+    padding: 24px;
+    animation: fadeUp .9s ease both;
+}
+
+.mock-window {
+    overflow: hidden;
+    border-radius: 26px;
+    background: rgba(8,13,31,.7);
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+.window-top {
+    display: flex;
+    gap: 8px;
+    padding: 15px;
+    background: rgba(255,255,255,.07);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.35);
+}
+
+.mock-content {
+    padding: 24px;
+}
+
+.ai-card {
+    padding: 18px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    margin-bottom: 14px;
+    animation: floatCard 4s ease-in-out infinite;
+}
+
+.ai-card:nth-child(2) {
+    animation-delay: .7s;
+}
+
+.ai-card:nth-child(3) {
+    animation-delay: 1.4s;
+}
+
+@keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.line {
+    height: 10px;
+    border-radius: 999px;
+    margin: 10px 0;
+    background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.2), rgba(255,255,255,.08));
+    background-size: 220% 100%;
+    animation: shimmer 2.4s linear infinite;
+}
+
+.line.short { width: 68%; }
+.line.mid { width: 84%; }
+
+@keyframes shimmer {
+    from { background-position: 220% 0; }
+    to { background-position: -220% 0; }
+}
+
+.section {
+    padding: 26px 0;
+}
+
+.section-title {
+    font-size: 34px;
+    letter-spacing: -1px;
+    margin: 0 0 10px;
+}
+
+.section-sub {
+    margin: 0 0 20px;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.generator {
+    display: grid;
+    grid-template-columns: .95fr 1.05fr;
+    gap: 22px;
+}
+
+.card {
+    padding: 28px;
+}
+
+.input-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.double {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    color: #dbeafe;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 15px;
+    border-radius: 18px;
+    color: var(--text);
+    background: rgba(255,255,255,.075);
+    border: 1px solid rgba(255,255,255,.13);
+    outline: none;
+    font-size: 15px;
+    transition: .2s ease;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #94a3b8;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: rgba(34,211,238,.65);
+    background: rgba(255,255,255,.11);
+    box-shadow: 0 0 0 4px rgba(34,211,238,.08);
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.form-note {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.loader {
+    display: none;
+    margin-top: 16px;
+}
+
+.loader-bar {
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255,255,255,.1);
+}
+
+.loader-inner {
+    height: 100%;
+    width: 35%;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    animation: loading 1.2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    from { transform: translateX(-120%); }
+    to { transform: translateX(330%); }
+}
+
+.result-box {
+    min-height: 320px;
+    padding: 22px;
+    border-radius: 24px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.11);
+    color: #eef2ff;
+    line-height: 1.75;
+    white-space: pre-wrap;
+}
+
+.result-empty {
+    color: var(--muted);
+}
+
+.tools {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.premium-strip {
+    margin-top: 22px;
+    padding: 20px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(34,211,238,.16));
+    border: 1px solid rgba(255,255,255,.14);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
+
+.premium-strip p {
+    margin: 4px 0 0;
+    color: var(--muted);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.feature {
+    padding: 24px;
+    transition: .25s;
+}
+
+.feature:hover {
+    transform: translateY(-6px);
+}
+
+.feature-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(34,211,238,.24));
+    margin-bottom: 14px;
+}
+
+.feature p {
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.footer {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px 0 44px;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 950px) {
+    .hero, .generator, .features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .nav {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .hero-left {
+        padding: 28px;
+    }
+
+    .double, .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-strip {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+function scrollToGenerator() {
+    document.getElementById("generator").scrollIntoView({behavior: "smooth"});
+}
+
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "block";
+}
+
+function copyResult() {
+    const el = document.getElementById("resultText");
+    if (!el) return;
+
+    navigator.clipboard.writeText(el.innerText);
+
+    const btn = document.getElementById("copyBtn");
+    const old = btn.innerText;
+    btn.innerText = "✅ Kopiert";
+    setTimeout(() => btn.innerText = old, 1400);
+}
+</script>
+</head>
+
+<body>
+<div class="container">
+
+    <nav class="nav">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <span>JobBoost AI</span>
+        </div>
+        <a class="nav-btn" href="/pricing">Premium 4,99€</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-left glass">
+            <div class="badges">
+                <span class="badge">🤖 KI Bewerbungsgenerator</span>
+                <span class="badge">2 kostenlos</span>
+                <span class="badge">Premium unbegrenzt</span>
+            </div>
+
+            <h1>
+                Bewerbungen, die <span class="gradient-text">professionell wirken.</span>
+            </h1>
+
+            <p class="hero-text">
+                Erstelle in Sekunden ein hochwertiges Bewerbungsschreiben.
+                Du bekommst 2 Bewerbungen kostenlos — danach kannst du Premium für unbegrenzte Nutzung freischalten.
+            </p>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="scrollToGenerator()">✨ Bewerbung erstellen</button>
+                <a href="/pricing"><button class="btn btn-secondary">🚀 Premium ansehen</button></a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <strong>30 Sek.</strong>
+                    <span>bis zum Entwurf</span>
+                </div>
+                <div class="stat">
+                    <strong>2 gratis</strong>
+                    <span>zum Testen</span>
+                </div>
+                <div class="stat">
+                    <strong>4,99€</strong>
+                    <span>Premium-Zugang</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right glass">
+            <div class="mock-window">
+                <div class="window-top">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+                <div class="mock-content">
+                    <div class="ai-card">
+                        <strong>Analyse deiner Angaben</strong>
+                        <div class="line"></div>
+                        <div class="line short"></div>
+                    </div>
+                    <div class="ai-card">
+                        <strong>Professionelle Formulierung</strong>
+                        <div class="line mid"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="ai-card">
+                        <strong>Fertiges Bewerbungsschreiben</strong>
+                        <div class="line"></div>
+                        <div class="line short"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="generator">
+        <h2 class="section-title">Bewerbung generieren</h2>
+        <p class="section-sub">Fülle die Felder aus. Je genauer deine Angaben sind, desto besser wird das Ergebnis.</p>
+
+        <div class="generator">
+            <div class="card glass">
+                <form method="POST" onsubmit="showLoader()">
+                    <div class="input-grid">
+                        <div class="double">
+                            <div>
+                                <label>Dein Name</label>
+                                <input name="name" placeholder="Max Mustermann">
+                            </div>
+                            <div>
+                                <label>Jobtitel</label>
+                                <input name="job" placeholder="z. B. Verkäufer" required>
+                            </div>
+                        </div>
+
+                        <div class="double">
+                            <div>
+                                <label>Branche</label>
+                                <input name="branch" placeholder="z. B. Einzelhandel, IT, Marketing">
+                            </div>
+                            <div>
+                                <label>Tonalität</label>
+                                <select name="tone">
+                                    <option value="professionell">Professionell</option>
+                                    <option value="selbstbewusst">Selbstbewusst</option>
+                                    <option value="freundlich">Freundlich</option>
+                                    <option value="modern">Modern</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Deine Erfahrung</label>
+                            <textarea name="experience" placeholder="Beschreibe deine Erfahrung..." required></textarea>
+                        </div>
+
+                        <div>
+                            <label>Stärken / Erfolge</label>
+                            <textarea name="strengths" placeholder="z. B. Teamfähigkeit, Kundenservice, Umsatz gesteigert..."></textarea>
+                        </div>
+                    </div>
+
+                    <p class="form-note">2 Bewerbungen kostenlos. Danach wirst du automatisch zur Premium-Seite weitergeleitet.</p>
+
+                    <div class="actions">
+                        <button class="btn btn-primary" type="submit">✨ Bewerbung generieren</button>
+                        <a href="/pricing"><button class="btn btn-secondary" type="button">Premium freischalten</button></a>
+                    </div>
+
+                    <div class="loader" id="loader">
+                        <div class="loader-bar"><div class="loader-inner"></div></div>
+                        <p class="form-note">KI schreibt gerade deine Bewerbung...</p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card glass">
+                <h3 style="margin-top:0;">Dein Ergebnis</h3>
+
+                {% if result %}
+                     <div class="result-box" id="resultText">{{ result }}</div>
+
+    <div class="tools">
+        <button class="btn btn-primary" id="copyBtn" onclick="copyResult()">📋 Kopieren</button>
+
+        <form action="/download-pdf" method="post" style="display:inline;">
+            <input type="hidden" name="text" value="{{ result }}">
+            <button class="btn btn-secondary" type="submit">📄 PDF herunterladen</button>
+        </form>
+
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Drucken</button>
+    </div>
+
+    <p class="form-note">💡 Tipp: Lade die Bewerbung als PDF herunter und nutze sie direkt.</p>
+
+{% else %}
+    <div class="result-box result-empty">
+        Hier erscheint dein fertiges Bewerbungsschreiben.
+    </div>
+{% endif %}
+
+                <div class="premium-strip">
+                    <div>
+                        <strong>Mehr Bewerbungen schreiben?</strong>
+                        <p>Premium für unbegrenzte Nutzung freischalten.</p>
+                    </div>
+                    <a href="/pricing"><button class="btn btn-primary">4,99€ Premium</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Warum Nutzer zahlen</h2>
+        <p class="section-sub">Dein Tool spart Zeit, verbessert Formulierungen und macht Bewerbungen einfacher.</p>
+
+        <div class="features">
+            <div class="feature glass">
+                <div class="feature-icon">⚡</div>
+                <h3>Schnell</h3>
+                <p>In wenigen Sekunden entsteht ein professioneller Entwurf.</p>
+            </div>
+            <div class="feature glass">
+                <div class="feature-icon">🎯</div>
+                <h3>Individuell</h3>
+                <p>Job, Branche, Tonalität und Erfahrung werden direkt berücksichtigt.</p>
+            </div>
+            <div class="feature glass">
+                <div class="feature-icon">💼</div>
+                <h3>Professionell</h3>
+                <p>Modern formuliert und direkt nutzbar für deine Bewerbung.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        JobBoost AI · KI Bewerbungsgenerator · 2 kostenlos, danach Premium
+    </div>
+
+</div>
+</body>
+</html>
